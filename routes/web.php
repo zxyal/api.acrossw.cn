@@ -26,7 +26,7 @@ Route::group(['middleware' => 'token', 'prefix' => 'home'], function (){
 
 });
 
-Router::Get('/', function (){
+Route::Get('/', function (){
     echo 'This is api.across.cn';
 });
 
