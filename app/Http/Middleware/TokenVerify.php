@@ -18,23 +18,20 @@ class TokenVerify
     {
         $token = $request->header('Verify-Token');
 
-        $response = $next($request);
-
         if($token){
             try {
                 $token_detail = explode('/', Crypt::decrypt($token));
 
                 if(time() < $token_detail[1]){
-                    $response->header('Verify-Token', 'invalid');
+                    return ['type' => 'fail', 'data' => 'token_invalid'];
                 }else{
                     $request->attributes->add(['user_id' => $token_detail[0]]);
-                    $response = $next($request);
                 }
             } catch (DecryptException $e) {
-                $response->header('Verify-Token', 'invalid');
+                return ['type' => 'fail', 'data' => 'token_invalid'];
             }
         }
 
-        return $response;
+        return $next($request);
     }
 }
