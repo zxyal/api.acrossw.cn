@@ -24,7 +24,7 @@ class TokenVerify
             try {
                 $token_detail = explode('/', Crypt::decrypt($token));
 
-                if(time() > $token_detail[1]){
+                if(time() < $token_detail[1]){
                     $response->header('Verify-Token', 'invalid');
                 }else{
                     $request->attributes->add(['user_id' => $token_detail[0]]);

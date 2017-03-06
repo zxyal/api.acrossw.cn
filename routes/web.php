@@ -11,15 +11,19 @@
 |
 */
 
-
+/*
+ * 登陆注册
+ */
 Route::group(['prefix' => 'user'], function (){
 
     Route::Post('/login', 'UserController@login');
-
     Route::Post('/register', 'UserController@create');
 
 });
 
+/*
+ *
+ */
 Route::group(['middleware' => 'token', 'prefix' => 'home'], function (){
 
     Route::Post('/', 'InfoController@home');
