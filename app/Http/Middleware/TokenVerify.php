@@ -27,8 +27,10 @@ class TokenVerify
             }else{
                 $request->attributes->add(['user_id' => $token_detail[0]]);
             }
+
+            return $next($request);
         }
 
-        return $next($request);
+        return ['type' => 'error', 'data' => '未登录'];
     }
 }

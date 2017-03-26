@@ -30,6 +30,15 @@ Route::group(['middleware' => 'token', 'prefix' => 'home'], function (){
 
 });
 
+/**
+ * Admin
+ */
+Route::group(['middleware' => 'token', 'prefix' => 'admin'], function (){
+
+    Route::Post('/package', 'AdminController@package');
+
+});
+
 Route::Get('/', function (){
     echo 'This is api.across.cn';
 });
