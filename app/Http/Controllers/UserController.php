@@ -118,4 +118,6 @@ class UserController extends Controller
             return ['type' => 'error', 'mes' => '注册失败，未知错误'];
         }
     }
+
+
 }

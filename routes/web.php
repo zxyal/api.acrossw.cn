@@ -11,9 +11,7 @@
 |
 */
 
-/*
- * 登陆注册
- */
+//登录注册
 Route::group(['prefix' => 'user'], function (){
 
     Route::Post('/login', 'UserController@login');
@@ -21,25 +19,20 @@ Route::group(['prefix' => 'user'], function (){
 
 });
 
-/*
- *
- */
+//用户中心
 Route::group(['middleware' => 'token', 'prefix' => 'home'], function (){
 
     Route::Post('/', 'InfoController@home');
 
 });
 
-/**
- * Admin
- */
+//A
 Route::group(['middleware' => 'token', 'prefix' => 'admin'], function (){
 
+    Route::Post('/verify', 'AdminController@verify');
+
+    //套餐
     Route::Post('/package', 'AdminController@package');
-
+    Route::Post('/package/create', 'AdminController@create_package');
+    Route::Post('/package/delete', 'AdminController@delete_package');
 });
-
-Route::Get('/', function (){
-    echo 'This is api.across.cn';
-});
-

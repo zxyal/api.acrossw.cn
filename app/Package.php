@@ -9,8 +9,7 @@ class Package extends Model
     //
     protected $table = 'package';
     public $timestamps = false;
-
     protected $fillable = [
-        'title', 'explain', 'transfer', 'days'
+        'title', 'explain_text', 'transfer', 'type', 'amount'
     ];
 }
