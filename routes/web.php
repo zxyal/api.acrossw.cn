@@ -24,6 +24,10 @@ Route::group(['middleware' => 'token', 'prefix' => 'home'], function (){
 
     Route::Post('/', 'InfoController@home');
 
+    //购买
+    Route::Get('/package', 'PackageController@index');
+    Route::Post('/package/buy', 'PackageController@buy');
+
 });
 
 //A

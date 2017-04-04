@@ -49,6 +49,7 @@ class AdminController extends Controller
         $transfer       = $request->get('transfer', 0);
         $type           = $request->get('type', 0);
         $amount           = $request->get('amount', 0);
+        $price           = $request->get('price', 0);
 
         $id = Package::create([
             'title'         =>  $title,
@@ -56,6 +57,7 @@ class AdminController extends Controller
             'transfer'      =>  $transfer,
             'type'          =>  $type,
             'amount'        =>  $amount,
+            'price'         =>  $price
         ]);
 
         if($id){
