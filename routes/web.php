@@ -27,8 +27,9 @@ Route::group(['middleware' => 'token', 'prefix' => 'home'], function (){
     //购买
     Route::Get('/package', 'PackageController@index');
     Route::Post('/package/buy', 'PackageController@buy');
-
 });
+
+Route::Get('/package/buy/jump', 'PackageController@jump');
 
 //A
 Route::group(['middleware' => 'token', 'prefix' => 'admin'], function (){
