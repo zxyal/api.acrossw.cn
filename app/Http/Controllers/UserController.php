@@ -93,12 +93,19 @@ class UserController extends Controller
         $create_user_state = DB::transaction(function () use ($email, $password, $ip) {
             $max_port = User::select('port')->orderBy('port', 'desc')->first();
 
+            $port_list = ['22', '80', '3306'];
+            $save_port = $max_port+1;
+
+            if(array_search($save_port, $port_list)){
+                $save_port++;
+            }
+
             return User::create([
                 'user_name' => $email,
                 'email'     => $email,
                 'pass'      => password_hash($password, PASSWORD_DEFAULT),
                 'passwd'    => $password,
-                'port'      => ($max_port['port']+1),
+                'port'      => $save_port,
                 'reg_ip'    => $ip
             ]);
         });
