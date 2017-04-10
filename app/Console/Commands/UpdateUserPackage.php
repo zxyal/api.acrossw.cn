@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class UpdateUserPackage extends Command
 {
@@ -38,6 +39,17 @@ class UpdateUserPackage extends Command
      */
     public function handle()
     {
-        Log::info('Yes! is running');
+        $start = microtime(true);
+
+        $package = DB::table('package')->select('transfer', 'type')->where('status', 1)->get();
+
+        $user_package = DB::table('user_package')->where(['progress', 2])->get();
+
+        $end = microtime(true);
+
+        $used_time = $start - $end;
+
+        Log::info('Used time:'.$used_time.'/n debug:'.var_export($package));
+
     }
 }
