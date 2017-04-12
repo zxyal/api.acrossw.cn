@@ -94,7 +94,7 @@ class UserController extends Controller
             $max_port = User::select('port')->orderBy('port', 'desc')->first();
 
             $port_list = ['22', '80', '3306'];
-            $save_port = $max_port+1;
+            $save_port = $max_port->port+1;
 
             if(array_search($save_port, $port_list)){
                 $save_port++;
