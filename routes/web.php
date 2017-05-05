@@ -31,7 +31,7 @@ Route::group(['middleware' => 'token', 'prefix' => 'home'], function (){
 
 Route::Get('/package/buy/jump', 'PackageController@jump');
 
-//A
+//管理
 Route::group(['middleware' => 'token', 'prefix' => 'admin'], function (){
 
     Route::Post('/verify', 'AdminController@verify');
@@ -41,3 +41,8 @@ Route::group(['middleware' => 'token', 'prefix' => 'admin'], function (){
     Route::Post('/package/create', 'AdminController@create_package');
     Route::Post('/package/delete', 'AdminController@delete_package');
 });
+
+
+//测试
+
+Route::Get('/test', 'TestController@test');

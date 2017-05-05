@@ -31,6 +31,6 @@ class TokenVerify
             return $next($request);
         }
 
-        return ['type' => 'error', 'data' => '未登录'];
+        return ['type' => 'error', 'data' => 'not_login'];
     }
 }
