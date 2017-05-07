@@ -89,6 +89,14 @@ class AdminController extends Controller
     {
         $user_all =  User::get();
 
+        foreach ($user_all as $k=>$v){
+            $user_all[$k]['t'] = date('Y-m-d H:i:s', $v->t);
+            $user_all[$k]['u'] = round($v->u / (1024 * 1024), 2);
+            $user_all[$k]['d'] = round($v->d / (1024 * 1024),2);
+            $user_all[$k]['used'] = $v->u + $v->d;
+            $user_all[$k]['transfer_enable'] = round($v->transfer_enable / (1024 * 1024),2);
+        }
+
         if(empty($user_all)){
             return ['type' => 'fail', 'data' => ''];
         }else{
