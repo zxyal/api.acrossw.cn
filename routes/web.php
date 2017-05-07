@@ -40,6 +40,10 @@ Route::group(['middleware' => 'token', 'prefix' => 'admin'], function (){
     Route::Post('/package', 'AdminController@package');
     Route::Post('/package/create', 'AdminController@create_package');
     Route::Post('/package/delete', 'AdminController@delete_package');
+
+    //用户
+    Route::Post('/user', 'AdminController@user');
+
 });
 
 

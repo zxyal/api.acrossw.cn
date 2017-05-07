@@ -84,4 +84,15 @@ class AdminController extends Controller
             return ['type' => 'fail', 'data' => '失败~'];
         }
     }
+
+    public function user(Request $request)
+    {
+        $user_all =  User::get();
+
+        if(empty($user_all)){
+            return ['type' => 'fail', 'data' => ''];
+        }else{
+            return ['type' => 'success', 'data' => $user_all];
+        }
+    }
 }
