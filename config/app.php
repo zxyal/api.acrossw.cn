@@ -176,7 +176,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        //email
+        Bogardo\Mailgun\MailgunServiceProvider::class,
     ],
 
     /*
@@ -226,7 +227,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Pay' => Illuminate\Support\Facades\View::class,
-
+        'Mailgun' => Bogardo\Mailgun\Facades\Mailgun::class,
     ],
 
 ];

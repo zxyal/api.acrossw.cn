@@ -49,4 +49,4 @@ Route::group(['middleware' => 'token', 'prefix' => 'admin'], function (){
 
 //测试
 
-Route::Get('/test', 'TestController@test');
+Route::Get('/test', 'TestController@email');
