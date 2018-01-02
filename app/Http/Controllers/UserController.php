@@ -13,12 +13,12 @@ class UserController extends Controller
 {
 
     public $error_msg = [
-        'email.email' => '请输入正确的E-Mail',
-        'email.required' => '请填写E-Mail',
-        'password.required' => '请填写密码',
+        'email.email'         => '请输入正确的E-Mail',
+        'email.required'      => '请填写E-Mail',
+        'password.required'   => '请填写密码',
         'password.alpha_dash' => '密码只能包含数字、字母和下划线',
-        'max' => '超过最大输入限制',
-        'password.min' => '密码不能小于6位'
+        'max'                 => '超过最大输入限制',
+        'password.min'        => '密码不能小于6位'
     ];
 
     /**
@@ -29,7 +29,7 @@ class UserController extends Controller
     protected function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:100',
+            'email'    => 'required|email|max:100',
             'password' => 'required|alpha_dash|max:50|min:6',
         ], $this->error_msg);
 
@@ -37,17 +37,17 @@ class UserController extends Controller
             return ['type' => 'fail', 'mes' => $validator->errors()->all()];
         }
 
-        $email = $request->input('email');
+        $email    = $request->input('email');
         $password = $request->input('password');
 
         $user_info = User::where('email', $email)->first();
 
         //生成token
-        $token = Crypt::encrypt($user_info['id'] . '/'. (time()+(3*24*60*60)));
+        $token = Crypt::encrypt($user_info['id'] . '/' . (time() + (3 * 24 * 60 * 60)));
 
         $response_user_info = [
-            'overdue_time'  =>  (time()+(3*24*60*60)),
-            'email'         =>  $user_info['email'],
+            'overdue_time' => (time() + (3 * 24 * 60 * 60)),
+            'email'        => $user_info['email'],
         ];
 
         if (password_verify($password, $user_info['pass'])) {
@@ -66,7 +66,7 @@ class UserController extends Controller
     protected function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:100',
+            'email'    => 'required|email|max:100',
             'password' => 'required|alpha_dash|max:50|min:6',
         ], $this->error_msg);
 
@@ -74,17 +74,17 @@ class UserController extends Controller
             return ['type' => 'fail', 'mes' => $validator->errors()->all()];
         }
 
-        $email      = $request->input('email');
-        $password   = $request->input('password');
-        $rpassword  = $request->input('rpassword');
+        $email     = $request->input('email');
+        $password  = $request->input('password');
+        $rpassword = $request->input('rpassword');
 
-        if($password != $rpassword){
+        if ($password != $rpassword) {
             return ['type' => 'fail', 'mes' => ['两次输入的密码不一致']];
         }
 
-        $user_exist = User::where('email' , $email)->first();
+        $user_exist = User::where('email', $email)->first();
 
-        if($user_exist){
+        if ($user_exist) {
             return ['type' => 'fail', 'mes' => ['E-Mail已被注册'], 'debug' => $user_exist];
         }
 
@@ -94,9 +94,9 @@ class UserController extends Controller
             $max_port = User::select('port')->orderBy('port', 'desc')->first();
 
             $port_list = ['22', '80', '3306'];
-            $save_port = $max_port->port+1;
+            $save_port = $max_port->port + 1;
 
-            if(array_search($save_port, $port_list)){
+            if (array_search($save_port, $port_list)) {
                 $save_port++;
             }
 
@@ -110,18 +110,18 @@ class UserController extends Controller
             ]);
         });
 
-        $token = Crypt::encrypt($create_user_state['id'] . '/'. (time()+(3*24*60*60)));
+        $token = Crypt::encrypt($create_user_state['id'] . '/' . (time() + (3 * 24 * 60 * 60)));
 
 
         $response_user_info = [
-            'overdue_time'  =>  (time()+(3*24*60*60)),
-            'email'         =>  $create_user_state['email'],
+            'overdue_time' => (time() + (3 * 24 * 60 * 60)),
+            'email'        => $create_user_state['email'],
         ];
 
 
-        if($create_user_state){
+        if ($create_user_state) {
             return ['type' => 'success', 'token' => $token, 'info' => json_encode($response_user_info)];
-        }else{
+        } else {
             return ['type' => 'error', 'mes' => '注册失败，未知错误'];
         }
     }
