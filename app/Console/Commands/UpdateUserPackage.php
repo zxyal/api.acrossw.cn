@@ -3,9 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
-
 use App\User;
 
 class UpdateUserPackage extends Command
@@ -15,7 +12,7 @@ class UpdateUserPackage extends Command
      *
      * @var string
      */
-    protected $signature = 'update:User transfer';
+    protected $signature = 'update:transfer';
 
     /**
      * The console command description.
@@ -41,7 +38,7 @@ class UpdateUserPackage extends Command
      */
     public function handle()
     {
-        $num = User::update([
+        $num = User::all()->update([
             'u'               => 0,
             'd'               => 0,
             'transfer_enable' => 5000 * 1024 * 1024 * 1024
